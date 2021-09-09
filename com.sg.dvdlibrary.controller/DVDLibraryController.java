@@ -1,20 +1,20 @@
 import java.util.List;
 
-import com.sg.dvdlibrary.dto.DVD;
-import com.sg.dvdlibrary.dao;
-import com.sg.dvdlibrary.ui;
+import com.sg.DVDLibrary.dto.DVD;
+import com.sg.DVDLibrary.dao;
+import com.sg.DVDLibrary.ui;
 
 
-public class DVDlibraryController {
+public class DVDLibraryController {
 
-    private DVDlibraryView view;// = new ClassRosterView();
-    private DVDlibraryDao dao;// = new ClassRosterDaoFileImpl();
+    private DVDLibraryView view;// = new ClassRosterView();
+    private DVDLibraryDao dao;// = new ClassRosterDaoFileImpl();
     private UserIO io = new UserIOConsoleImpl();
     
 
-    public DVDlibraryController(){}
+    public DVDLibraryController(){}
 
-    public DVDlibraryController(DVDlibraryDao dao, DVDlibraryView view) {
+    public DVDLibraryController(DVDLibraryDao dao, DVDLibraryView view) {
         this.dao = dao;
         this.view = view;
     }
@@ -64,7 +64,7 @@ public class DVDlibraryController {
     
             }
             exitMessage();
-        } catch (DvdLibraryDaoException e) {
+        } catch (DVDLibraryDaoException e) {
             view.displayErrorMessage(e.getMessage());
         }
     }
@@ -125,7 +125,7 @@ public class DVDlibraryController {
     private void editInfo(){
         view.displayEditBanner();
         String DvdName = view.getDVDIdChoice();
-        view.editDVD(DvdName, dao.getDVD(DvdName));
+        dao.editDVD(DvdName, dao.getDVD(DvdName));
         view.displayEditresult(DvdName);
     }
 
@@ -138,20 +138,21 @@ public class DVDlibraryController {
 
     private void loadFile(){
         view.displayLoadBanner();
-        
+        dao.loadFile();
 
     }
 
     private void saveDvds(){
         view.displaySaveBanner();
-        view.saveFile();
-        String DvdName = view.getDVDIdChoice();
+        marsha
+        dao.saveFile();
+        
     }
 
     private void changeMany(){
         view.displayChangeBanner();
-        view.changeMany();
-        String DvdName = view.getDVDIdChoice();
+        dao.changeMany();
+        //String DvdName = view.getDVDIdChoice();
     }
 
 }
@@ -165,4 +166,5 @@ Allow the user to display the information for a particular DVD
 Allow the user to search for a DVD by title
 Load the DVD library from a file
 Save the DVD library back to the file when the program completes
-Allow the user to add, edit, or delete many DVDs in one session*/
+Allow the user to add, edit, or delete many DVDs in one session
+*/
