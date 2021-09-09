@@ -1,10 +1,10 @@
 import java.util.*;
 
-public class ClassRosterView {
+public class DVDLibraryView {
 
     private UserIO io;
 
-    public ClassRosterView(UserIO io) {
+    public DVDLibraryView(UserIO io) {
         this.io = io;
     }
 
