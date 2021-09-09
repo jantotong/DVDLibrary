@@ -14,11 +14,12 @@ public class DVDLibraryView {
         io.print("2. Remove DVD");
         io.print("3. Edit DVD information");
         io.print("4. List all DVDs");
-        io.print("5. Search DVD by Title");
-        io.print("6. Load DVD from a file");
-        io.print("7. Save DVD to file when program completes");
-        io.print("8. Exit");
-        return io.readInt("Please select from the above choices.", 1, 8);
+        io.print("5. List all DVDs");
+        io.print("6. Search DVD by Title");
+        io.print("7. Load DVD from a file");
+        io.print("8. Save DVD to file when program completes");
+        io.print("9. Exit");
+        return io.readInt("Please select from the above choices.", 1, 9);
     }
 
     public DVD getNewDVDInfo() {
@@ -33,15 +34,6 @@ public class DVDLibraryView {
         DVD currentDVD = new DVD(title, releaseDate, mpaaRating, director, studio, userRating);
 
         return currentDVD;
-    }
-
-    public void displayCreateDVDBanner() {
-        io.print("=== Create DVD ===");
-    }
-
-    public void displayCreateSuccessBanner() {
-        io.readString(
-                "DVD successfully created.  Please hit enter to continue");
     }
 
     public void displayDVDList(List<DVD> DVDList) {
@@ -59,13 +51,6 @@ public class DVDLibraryView {
         io.readString("Please hit enter to continue.");
     }
 
-    public void displayDisplayAllBanner() {
-        io.print("=== Display All DVDs ===");
-    }
-
-    public void displayDisplayDVDBanner() {
-        io.print("=== Display DVD ===");
-    }
 
     public String getDVDTitleChoice() {
         return io.readString("Please enter the DVD Title.");
@@ -88,10 +73,6 @@ public class DVDLibraryView {
         io.readString("Please hit enter to continue.");
     }
 
-    public void displayRemoveDVDBanner() {
-        io.print("=== Remove DVD ===");
-    }
-
     public void displayRemoveResult(DVD DVDRecord) {
         if (DVDRecord != null) {
             io.print("DVD successfully removed.");
@@ -99,23 +80,6 @@ public class DVDLibraryView {
             io.print("No such DVD.");
         }
         io.readString("Please hit enter to continue.");
-    }
-
-    public void displayExitBanner() {
-        io.print("Good Bye from DVD Library!");
-    }
-
-    public void displayUnknownCommandBanner() {
-        io.print("Unknown Command!");
-    }
-
-    public void displayErrorMessage(String errorMsg) {
-        io.print("=== ERROR ===");
-        io.print(errorMsg);
-    }
-
-    public void displayEditDVDBanner() {
-        io.print("=== Edit DVD ===");
     }
 
     public DVD editDVDInfo(DVD DVD) {
@@ -133,4 +97,57 @@ public class DVDLibraryView {
             return DVD;
         }
     }
+
+    ///START OF BANNERS
+    public void displayExitBanner() {
+        io.print("Good Bye from DVD Library!");
+    }
+
+    public void displayUnknownCommandBanner() {
+        io.print("Unknown Command!");
+    }
+
+
+    public void displayEditDVDBanner() {
+        io.print("=== Edit DVD ===");
+    }
+
+    public void displayLoadBanner() {
+        io.print("=== Load File ===");
+    }
+
+    public void displaySaveBanner() {
+        io.print("=== Save File ===");
+    }
+
+    public void displayChangeBanner() {
+        io.print("=== Change File ===");
+    }
+
+    public void displayDisplayAllBanner() {
+        io.print("=== Display All DVDs ===");
+    }
+
+    public void displayDisplayDVDBanner() {
+        io.print("=== Display DVD ===");
+    }
+
+    public void displayErrorMessage(String errorMsg) {
+        io.print("=== ERROR ===");
+        io.print(errorMsg);
+    }
+
+    public void displayCreateDVDBanner() {
+        io.print("=== Create DVD ===");
+    }
+
+    public void displayCreateSuccessBanner() {
+        io.readString(
+                "DVD successfully created.  Please hit enter to continue");
+    }
+
+    public void displayRemoveDVDBanner() {
+        io.print("=== Remove DVD ===");
+    }
+    ///END OF BANNERS
 }
