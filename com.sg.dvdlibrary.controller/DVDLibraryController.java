@@ -109,7 +109,7 @@ public class DVDLibraryController {
 
     private void removeDvd(){
         view.displayRemoveDVDBanner();
-        String DvdName = view.getDVDIdChoice();
+        String DvdName = view.getDVDChoice();
         DVD temp = dao.getDVD(DvdName);
         view.displayRemoveResult(DvdName);
     }
