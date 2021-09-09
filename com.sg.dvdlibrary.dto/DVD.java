@@ -73,7 +73,4 @@ public class DVD {
     public void setUserRating(String userRating) {
         this.userRating = userRating;
     }
-    
-    
-    
 }
