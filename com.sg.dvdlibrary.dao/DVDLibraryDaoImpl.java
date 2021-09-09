@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package DVDLibrary.com.sg.dvdlibrary;
 
 
-import dto.DVD;
+//import DVDLibrary.com.sg.dvdlibrary.DVD;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -26,53 +26,24 @@ import java.util.Scanner;
 public class DVDLibraryDaoImpl implements DVDLibraryDao {
     
     private Map<String, DVD> dvds = new HashMap<>();
-    public static final String ROSTER_FILE = "library.txt";
+    public static final String LIBRARY_FILE = "library.txt";
     public static final String DELIMITER = "::";
     
-    private DVD unmarshallStudent(String dvdAsText){
-        // studentAsText is expecting a line read in from our file.
-        // For example, it might look like this:
-        // 1234::Ada::Lovelace::Java-September1842
-        //
-        // We then split that line on our DELIMITER - which we are using as ::
-        // Leaving us with an array of Strings, stored in studentTokens.
-        // Which should look like this:
-        // ______________________________________
-        // |    |   |        |                  |
-        // |1234|Ada|Lovelace|Java-September1842|
-        // |    |   |        |                  |
-        // --------------------------------------
-        //  [0]  [1]    [2]         [3]
+    private DVD unmarshallDVD(String dvdAsText){
+        
         String[] dvdTokens = dvdAsText.split(DELIMITER);
 
-        // Given the pattern above, the student Id is in index 0 of the array.
-        String dvdTitle = ];
-
-        // Which we can then use to create a new Student object to satisfy
-        // the requirements of the Student constructor.
+        // Given the pattern above, create DVD with constructor
         DVD dvdFromFile = new DVD(
                 dvdTokens[0], 
                 dvdTokens[1],
-                dvdTokens[2],
+                Double.parseDouble(dvdTokens[2]),
                 dvdTokens[3],
                 dvdTokens[4],
                 dvdTokens[5]
         );
 
-        // However, there are 3 remaining tokens that need to be set into the
-        // new student object. Do this manually by using the appropriate setters.
-
-        // Index 1 - FirstName
-        studentFromFile.setFirstName(studentTokens[1]);
-
-        // Index 2 - LastName
-        studentFromFile.setLastName(studentTokens[2]);
-
-        // Index 3 - Cohort
-        studentFromFile.setCohort(studentTokens[3]);
-
-        // We have now created a student! Return it!
-        return studentFromFile;
+        return dvdFromFile;
     }
     private void loadRoster() throws DVDLibraryDaoException {
         Scanner scanner;
@@ -81,7 +52,7 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
             // Create Scanner for reading the file
             scanner = new Scanner(
                     new BufferedReader(
-                            new FileReader(ROSTER_FILE)));
+                            new FileReader(LIBRARY_FILE)));
         } catch (FileNotFoundException e) {
             throw new DVDLibraryDaoException(
                     "-_- Could not load roster data into memory.", e);
@@ -89,24 +60,23 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
         // currentLine holds the most recent line read from the file
         String currentLine;
         // currentStudent holds the most recent student unmarshalled
-        Student currentStudent;
+        DVD currentDVD;
         // Go through ROSTER_FILE line by line, decoding each line into a 
         // Student object by calling the unmarshallStudent method.
         // Process while we have more lines in the file
         while (scanner.hasNextLine()) {
             // get the next line in the file
             currentLine = scanner.nextLine();
-            // unmarshall the line into a Student
-            currentStudent = unmarshallStudent(currentLine);
+            // unmarshall the line into a DVD
+            currentDVD = unmarshallDVD(currentLine);
 
-            // We are going to use the student id as the map key for our student object.
-            // Put currentStudent into the map using student id as the key
-            students.put(currentStudent.getStudentId(), currentStudent);
+            
+            dvds.put(currentDVD.getTitle(), currentDVD);
         }
         // close scanner
         scanner.close();
     }
-    private String marshallStudent(Student aStudent){
+    private String marshallDVD(DVD aDVD){
         // We need to turn a Student object into a line of text for our file.
         // For example, we need an in memory object to end up like this:
         // 4321::Charles::Babbage::Java-September1842
@@ -115,24 +85,31 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
         // and concatenate with our DELIMITER as a kind of spacer. 
 
         // Start with the student id, since that's supposed to be first.
-        String studentAsText = aStudent.getStudentId() + DELIMITER;
+        String dvdAsText = aDVD.getTitle() + DELIMITER;
 
-        // add the rest of the properties in the correct order:
+        // Title
+        dvdAsText += aDVD.getTitle() + DELIMITER;
 
-        // FirstName
-        studentAsText += aStudent.getFirstName() + DELIMITER;
+        // releaseDate
+        dvdAsText += aDVD.getReleaseDate() + DELIMITER;
 
-        // LastName
-        studentAsText += aStudent.getLastName() + DELIMITER;
+        // mpaaRating
+        dvdAsText += aDVD.getMpaaRating() + DELIMITER;
 
-        // Cohort - don't forget to skip the DELIMITER here.
-        studentAsText += aStudent.getCohort();
-
-        // We have now turned a student to text! Return it!
-        return studentAsText;
+        // director
+        dvdAsText += aDVD.getDirector() + DELIMITER;
+        
+        // studio
+        dvdAsText += aDVD.getStudio() + DELIMITER;
+        
+        // userRating
+        dvdAsText += aDVD.getUserRating();
+        
+        // We have now turned a DVD to text! Return it!
+        return dvdAsText;
     }
     /**
-    * Writes all students in the roster out to a ROSTER_FILE.  See loadRoster
+    * Writes all dvds in the library out to a LIBRARY_FILE.  See loadRoster
     * for file format.
     * 
     * @throws DVDLibraryDaoException if an error occurs writing to the file
@@ -146,10 +123,10 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
        PrintWriter out;
 
        try {
-           out = new PrintWriter(new FileWriter(ROSTER_FILE));
+           out = new PrintWriter(new FileWriter(LIBRARY_FILE));
        } catch (IOException e) {
            throw new DVDLibraryDaoException(
-                   "Could not save student data.", e);
+                   "Could not save dvd data.", e);
        }
 
        // Write out the Student objects to the roster file.
@@ -157,13 +134,13 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
        // get the Collection of Students and iterate over them but we've
        // already created a method that gets a List of Students so
        // we'll reuse it.
-       String studentAsText;
-       List<Student> studentList = this.getAllStudents();
-       for (Student currentStudent : studentList) {
-           // turn a Student into a String
-           studentAsText = marshallStudent(currentStudent);
-           // write the Student object to the file
-           out.println(studentAsText);
+       String dvdAsText;
+       List<DVD> dvdList = this.getAllDVDs();
+       for (DVD currentDVD : dvdList) {
+           // turn a DVD into a String
+           dvdAsText = marshallDVD(currentDVD);
+           // write the DVD object to the file
+           out.println(dvdAsText);
            // force PrintWriter to write line to the file
            out.flush();
        }
@@ -184,8 +161,12 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
     }
 
     @Override
-    public DVD editDVD(String dvdTitle) throws DVDLibraryDaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DVD editDVD(String dvdTitle, DVD dvd) throws DVDLibraryDaoException {
+        loadRoster();
+        DVD removedDVD = dvds.remove(dvdTitle);
+        DVD newDVD = dvds.put(dvdTitle, dvd);
+        writeRoster();
+        return newDVD;
     }
 
     @Override
