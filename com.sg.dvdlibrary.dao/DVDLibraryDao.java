@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package DVDLibrary.com.sg.dvdlibrary;
 
-import dto.DVD;
+import DVDLibrary.com.sg.dvdlibrary.DVD;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public interface DVDLibraryDao {
     DVD getDVD(String dvdTitle)
      throws DVDLibraryDaoException;
     
-    DVD editDVD(String dvdTitle)
+    DVD editDVD(String dvdTitle, DVD dvd)
      throws DVDLibraryDaoException;
 
     DVD removeDVD(String dvdTitle)
