@@ -59,10 +59,10 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
         }
         // currentLine holds the most recent line read from the file
         String currentLine;
-        // currentStudent holds the most recent student unmarshalled
+        // currentDVD holds the most recent DVD unmarshalled
         DVD currentDVD;
-        // Go through ROSTER_FILE line by line, decoding each line into a 
-        // Student object by calling the unmarshallStudent method.
+        // Go through LIBRARY_FILE line by line, decoding each line into a 
+        // DVD object by calling the unmarshallStudent method.
         // Process while we have more lines in the file
         while (scanner.hasNextLine()) {
             // get the next line in the file
@@ -77,14 +77,14 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
         scanner.close();
     }
     private String marshallDVD(DVD aDVD){
-        // We need to turn a Student object into a line of text for our file.
+        // We need to turn a DVD object into a line of text for our file.
         // For example, we need an in memory object to end up like this:
         // 4321::Charles::Babbage::Java-September1842
 
         // It's not a complicated process. Just get out each property,
         // and concatenate with our DELIMITER as a kind of spacer. 
 
-        // Start with the student id, since that's supposed to be first.
+        // Start with the DVD title, since that's supposed to be first.
         String dvdAsText = aDVD.getTitle() + DELIMITER;
 
         // Title
@@ -129,10 +129,10 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
                    "Could not save dvd data.", e);
        }
 
-       // Write out the Student objects to the roster file.
-       // NOTE TO THE APPRENTICES: We could just grab the student map,
-       // get the Collection of Students and iterate over them but we've
-       // already created a method that gets a List of Students so
+       // Write out the DVD objects to the linrary file.
+       // NOTE TO THE APPRENTICES: We could just grab the dvd map,
+       // get the Collection of Dvds and iterate over them but we've
+       // already created a method that gets a List of DVDs so
        // we'll reuse it.
        String dvdAsText;
        List<DVD> dvdList = this.getAllDVDs();
