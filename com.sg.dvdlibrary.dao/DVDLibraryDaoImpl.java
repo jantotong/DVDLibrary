@@ -87,9 +87,6 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
         // Start with the DVD title, since that's supposed to be first.
         String dvdAsText = aDVD.getTitle() + DELIMITER;
 
-        // Title
-        dvdAsText += aDVD.getTitle() + DELIMITER;
-
         // releaseDate
         dvdAsText += aDVD.getReleaseDate() + DELIMITER;
 
