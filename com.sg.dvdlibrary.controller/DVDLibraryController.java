@@ -53,7 +53,7 @@ public class DVDlibraryController {
                         saveDvds();
                         break;
                     case 9:
-                        manyChange();
+                        changeMany();
                         break;
                     case 10:
                         keepGoing = false;
@@ -123,25 +123,35 @@ public class DVDlibraryController {
     }
 
     private void editInfo(){
-        view.displayEdit;
+        view.displayEditBanner();
         String DvdName = view.getDVDIdChoice();
-        view.editDVD();
+        view.editDVD(DvdName, dao.getDVD(DvdName));
+        view.displayEditresult(DvdName);
     }
 
     private void search(){
+        view.displaySearchBanner();
+        String DvdName = view.getDVDIdChoice();
+        view.searchDvd(DvdName);
 
     }
 
     private void loadFile(){
+        view.displayLoadBanner();
+        
 
     }
 
     private void saveDvds(){
-
+        view.displaySaveBanner();
+        view.saveFile();
+        String DvdName = view.getDVDIdChoice();
     }
 
-    private void manyChange(){
-
+    private void changeMany(){
+        view.displayChangeBanner();
+        view.changeMany();
+        String DvdName = view.getDVDIdChoice();
     }
 
 }
