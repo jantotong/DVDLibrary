@@ -1,6 +1,6 @@
 import java.util.List;
 
-import com.sg.dvdlibrary.dto;
+import com.sg.dvdlibrary.dto.DVD;
 import com.sg.dvdlibrary.dao;
 import com.sg.dvdlibrary.ui;
 
@@ -109,8 +109,8 @@ public class DVDlibraryController {
 
     private void removeDvd(){
         view.displayRemoveDVDBanner();
-        String DvdName = view.getStudentIdChoice();
-        DVD temp = dao.getStudent(DvdName);
+        String DvdName = view.getDVDIdChoice();
+        DVD temp = dao.getDVD(DvdName);
         view.displayRemoveResult(DvdName);
     }
 
@@ -123,7 +123,9 @@ public class DVDlibraryController {
     }
 
     private void editInfo(){
-
+        view.displayEdit;
+        String DvdName = view.getDVDIdChoice();
+        view.editDVD();
     }
 
     private void search(){
