@@ -161,7 +161,9 @@ public class DVDLibraryDaoImpl implements DVDLibraryDao {
     public DVD editDVD(String dvdTitle, DVD dvd) throws DVDLibraryDaoException {
         loadRoster();
         DVD removedDVD = dvds.remove(dvdTitle);
-        DVD newDVD = dvds.put(dvdTitle, dvd);
+        writeRoster();
+        loadRoster();
+        DVD newDVD = dvds.put(dvd.getTitle(), dvd);
         writeRoster();
         return newDVD;
     }
