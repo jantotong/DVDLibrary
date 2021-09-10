@@ -64,48 +64,38 @@ public class DVDLibraryController {
             view.displayErrorMessage(e.getMessage());
         }
     }
-
+    /**
+     * SELECTION MENU : Allow user to select which action to perform
+     * @return 
+     */
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
-
+    /**
+     * CASE 1 : Allow the user to add a DVD to the collection
+     * @throws DVDLibraryDaoException 
+     */
     private void addDvd() throws DVDLibraryDaoException{
         view.displayCreateDVDBanner();
         DVD temp = view.getNewDVDInfo();
         dao.addDVD(temp.getTitle() ,temp);
         view.displayCreateSuccessBanner();
     }
-
-    private void listShelf() throws DVDLibraryDaoException{
-        view.displayDisplayAllBanner();
-        List<DVD> shelf = dao.getAllDVDs();
-        view.displayDVDList(shelf);
-    }
-
-    private void viewDvd()throws DVDLibraryDaoException{
-        view.displayDisplayDVDBanner();
-        String DvdName = view.getDVDTitleChoice();
-        DVD temp = dao.getDVD(DvdName);
-        view.displayDVD(temp);
-    }
-
+    /**
+     * CASE 2 : Allow the user to remove a DVD from the collection
+     * @throws DVDLibraryDaoException 
+     */
     private void removeDvd() throws DVDLibraryDaoException{
         view.displayRemoveDVDBanner();
         String DvdName = view.getDVDTitleChoice();
         DVD temp = dao.removeDVD(DvdName);
         view.displayRemoveResult(temp);
     }
-
-    private void unknownCommand() {
-        view.displayUnknownCommandBanner();
-    }
-    
-    private void exitMessage() {
-        view.displayExitBanner();
-    }
-
+    /**
+     * CASE 3 : Allow the user to edit the information for an existing DVD in the collection
+     * @throws DVDLibraryDaoException 
+     */
     private void editInfo() throws DVDLibraryDaoException{
-//        view.editInfoBanner();
         String DvdName;        
         DVD oldDVD;
         while(true){
@@ -117,26 +107,42 @@ public class DVDLibraryController {
                 view.displayNoDVD();
             }
         }
-        
         DVD newDVD = view.editDVDInfo(oldDVD);
         dao.editDVD(DvdName, newDVD);
     }
-
+    /**
+     * CASE 4 : Allow the user to list the DVDs in the collection
+     * @throws DVDLibraryDaoException 
+     */
+    private void listShelf() throws DVDLibraryDaoException{
+        view.displayDisplayAllBanner();
+        List<DVD> shelf = dao.getAllDVDs();
+        view.displayDVDList(shelf);
+    }
+    /**
+     * CASE 5 : Allow the user to display the information for a particular DVD
+     * @throws DVDLibraryDaoException 
+     */
+    private void viewDvd()throws DVDLibraryDaoException{
+        view.displayDisplayDVDBanner();
+        String DvdName = view.getDVDTitleChoice();
+        DVD temp = dao.getDVD(DvdName);
+        view.displayDVD(temp);
+    }
+    /**
+     * CASE 6 : Allow the user to search for a DVD by title
+     * @throws DVDLibraryDaoException 
+     */
     private void search() throws DVDLibraryDaoException{
         view.displaySearchDVDBanner();
         String DvdName = view.getDVDTitleChoice();
         DVD temp = dao.getDVD(DvdName);
         view.displayDVD(temp);
     }
-
-    private void loadFile(){
-        view.displayLoadBanner();
-    }
-
-    private void saveDvds(){
-        view.displaySaveBanner();
-    }
-
+    /**
+     * CASE 7 : Allow the user to add, edit, or delete many DVDs in one session
+     * @throws DVDLibraryDaoException 
+     */
     private void changeMany() throws DVDLibraryDaoException{
         view.displayChangeManyDVDBanner();
         int action = view.getManyAction();
@@ -159,20 +165,15 @@ public class DVDLibraryController {
                 }
                 break;
         }
-       
-        //String DvdName = view.getDVDIdChoice();
     }
-
+    /**
+     * DEFAULT CASE : DISPLAY INVALID INPUT WAS ENTERED  
+     */
+    private void unknownCommand() {
+        view.displayUnknownCommandBanner();
+    }
+    // Notify the user that the program is about to exit
+    private void exitMessage() {
+        view.displayExitBanner();
+    }
 }
-
-/*
-Allow the user to add a DVD to the collection
-Allow the user to remove a DVD from the collection
-Allow the user to edit the information for an existing DVD in the collection
-Allow the user to list the DVDs in the collection
-Allow the user to display the information for a particular DVD
-Allow the user to search for a DVD by title
-Load the DVD library from a file
-Save the DVD library back to the file when the program completes
-Allow the user to add, edit, or delete many DVDs in one session
-*/
